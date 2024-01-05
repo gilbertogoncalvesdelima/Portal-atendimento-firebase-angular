@@ -1,0 +1,81 @@
+<mat-stepper linear  headerPosition="top" #stepper class="center-container">
+    <mat-step [stepControl]="registerForm">
+        <form [formGroup]="registerForm">
+        <ng-template matStepLabel>Conta</ng-template>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Cadastrar</mat-card-title>
+                <mat-card-subtitle>Passo 1 de 2</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="step-content">
+                <div class="form-row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nome</mat-label>
+                        <input matInput formControlName="name"  required />
+                        <mat-error *ngIf="registerForm.get('name')?.invalid && registerForm.get('email')?.touched">
+                            <span *ngIf="registerForm.get('name')?.errors?.['required']">Nome é obrigatório.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" type="email" required />
+                        <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                            <span *ngIf="registerForm.get('email')?.errors?.['required']">Emailé obrigatório.</span>
+                            <span *ngIf="registerForm.get('email')?.errors?.['email']">Entre como um email válido.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Senha</mat-label>
+                        <input matInput formControlName="password" type="password" required />
+                        <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                            <span *ngIf="registerForm.get('password')?.errors?.['required']">Senha é obrigatório.</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-divider></mat-divider>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button routerLink="/login">Cancel</button>
+                <button mat-raised-button color="primary" type="submit" (click)="submitRegisterForm()">Próximoo</button>
+            </mat-card-actions>
+            <mat-card-footer>
+                <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+            </mat-card-footer>
+        </mat-card>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="verifyForm">
+        <form [formGroup]="verifyForm">
+        <ng-template matStepLabel>Verifique</ng-template>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Verifique o seu endereço de email</mat-card-title>
+                <mat-card-subtitle>passo 2 de 2</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="step-content">
+                Verificação de email não implementado ainda. Pressione Próximo para continuar
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" type="submit" (click)="submitVerifyForm()">Next</button>
+            </mat-card-actions>
+        </mat-card>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Ok</ng-template>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Obrigado!</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="step-content">
+                <p>Você está registrado com sucesso.</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button (click)="stepper.reset()">Resetar</button>
+                <button mat-raised-button color="primary" routerLink="/header">Finalizar</button>
+            </mat-card-actions>
+        </mat-card>
+    </mat-step>
+</mat-stepper>
+
